@@ -19,14 +19,14 @@ class GameManager:
         
         # 为生成谜题创建客户端
         self.generate_client = AsyncOpenAI(
-            api_key=self.config.get_generate_api_key(),
-            base_url=self.config.get_generate_base_url()
+            api_key=self.config.ats_openai_generate_api_key,
+            base_url=self.config.ats_openai_generate_base_url
         )
         
         # 为评判问题创建客户端
         self.judge_client = AsyncOpenAI(
-            api_key=self.config.get_judge_api_key(),
-            base_url=self.config.get_judge_base_url()
+            api_key=self.config.ats_openai_judge_api_key,
+            base_url=self.config.ats_openai_judge_base_url
         )
         
         # 加载提示词模板
@@ -98,7 +98,7 @@ class GameManager:
             theme = ""
         try:
             response = await self.generate_client.chat.completions.create(
-                model=self.config.get_generate_model(),
+                model=self.config.ats_openai_generate_model,
                 messages=[
                     {"role": "system", "content": self.generate_prompt},
                     {"role": "user", "content": f"### **执行指令**\n\n现在，启动你的内容生成引擎。请遵循以上所有规则，为我生成 **1** 个全新的、符合JSON格式的海龟汤谜题。将它们包含在一个JSON数组中。{theme}"}
@@ -159,7 +159,7 @@ class GameManager:
         try:
             # 调用 AI 进行判断
             response = await self.judge_client.chat.completions.create(
-                model=self.config.get_judge_model(),
+                model=self.config.ats_openai_judge_model,
                 messages=[
                     {"role": "system", "content": self.gaming_prompt},
                     {"role": "user", "content": json.dumps(game_data, ensure_ascii=False)}
@@ -247,7 +247,7 @@ class GameManager:
         try:
             # 调用 AI 进行评分
             response = await self.judge_client.chat.completions.create(
-                model=self.config.get_judge_model(),
+                model=self.config.ats_openai_judge_model,
                 messages=[
                     {"role": "system", "content": self.rate_prompt},
                     {"role": "user", "content": json.dumps(rate_data, ensure_ascii=False)}
@@ -288,7 +288,7 @@ class GameManager:
         try:
             # 调用 AI 重新计算进度
             response = await self.judge_client.chat.completions.create(
-                model=self.config.get_judge_model(),
+                model=self.config.ats_openai_judge_model,
                 messages=[
                     {"role": "system", "content": self.progress_prompt},
                     {"role": "user", "content": json.dumps(progress_data, ensure_ascii=False)}
