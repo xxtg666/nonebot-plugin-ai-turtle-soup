@@ -15,3 +15,9 @@ dependencies = [
 requires-python = ">=3.9"
 readme = "README.md"
 license = { text = "MIT" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"nonebot_plugin_ai_turtle_soup" = ["prompts/*.md"]
