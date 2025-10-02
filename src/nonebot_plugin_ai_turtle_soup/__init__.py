@@ -3,20 +3,10 @@ NoneBot2 Turtle Soup Game Plugin
 海龟汤游戏插件
 """
 from nonebot import on_message
-from nonebot.plugin import PluginMetadata
+from nonebot.plugin import PluginMetadata, require
 from nonebot.rule import to_me
 from nonebot.exception import FinishedException
-from nonebot.adapters import Event, Bot
-from nonebot_plugin_alconna import (
-    Alconna,
-    Args,
-    Arparma,
-    on_alconna,
-    UniMessage
-)
-from .game_manager import GameManager
-from .config import Config
-
+from nonebot.adapters import Event
 
 __plugin_meta__ = PluginMetadata(
     name="海龟汤游戏",
@@ -34,6 +24,18 @@ __plugin_meta__ = PluginMetadata(
     homepage="https://github.com/xxtg666/nonebot-plugin-ai-turtle-soup",
     config=Config,
 )
+
+require("nonebot_plugin_alconna")
+
+from nonebot_plugin_alconna import (
+    Alconna,
+    Args,
+    Arparma,
+    on_alconna,
+    UniMessage
+)
+from .game_manager import GameManager
+from .config import Config
 
 # 初始化游戏管理器
 game_manager = GameManager()
