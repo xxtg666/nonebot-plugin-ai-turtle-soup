@@ -7,6 +7,8 @@ from nonebot.plugin import PluginMetadata, require
 from nonebot.rule import to_me
 from nonebot.exception import FinishedException
 from nonebot.adapters import Event
+from .game_manager import GameManager
+from .config import Config
 
 __plugin_meta__ = PluginMetadata(
     name="海龟汤游戏",
@@ -34,8 +36,7 @@ from nonebot_plugin_alconna import (
     on_alconna,
     UniMessage
 )
-from .game_manager import GameManager
-from .config import Config
+
 
 # 初始化游戏管理器
 game_manager = GameManager()
