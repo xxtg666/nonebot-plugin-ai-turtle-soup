@@ -84,7 +84,7 @@ pip install nonebot-plugin-ai-turtle-soup
 
 ## ⚙️ 配置
 
-请在机器人目录中创建一个 `.env` 文件(或编辑对应 `.env` 文件，可能为 `.env.dev` 或 `.env.prod`)，然后参考下方的配置内容进行修改。
+请在机器人目录中创建一个 `.env` 文件(或编辑对应 `.env` 文件，可能为 `.env.dev` 或 `.env.prod`)，然后将下方的配置内容复制进去并修改。
 
 ### 配置项说明
 
