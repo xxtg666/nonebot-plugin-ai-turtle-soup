@@ -1,0 +1,17 @@
+[project]
+name = "nonebot-plugin-ai-turtle-soup"
+
+version = "1.0.0"
+
+description = "AI驱动的海龟汤(情境猜谜)游戏"
+authors = [
+    { name = "xxtg666", email = "xxtg666@gmail.com" }
+]
+dependencies = [
+    "nonebot2",
+    "nonebot-plugin-alconna",
+    "openai"
+]
+requires-python = ">=3.9"
+readme = "README.md"
+license = { text = "MIT" }

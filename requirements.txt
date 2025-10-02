@@ -1,0 +1,2 @@
+openai
+nonebot-plugin-alconna>=0.52.0
