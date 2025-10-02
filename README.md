@@ -1,4 +1,4 @@
-# nonebot-plugin-ai-turtle-soup
+![](https://socialify.git.ci/xxtg666/nonebot-plugin-ai-turtle-soup/image?description=1&forks=1&issues=1&language=1&logo=https://raw.githubusercontent.com/xxtg666/nonebot-plugin-ai-turtle-soup/main/docs/nbp_logo.png&name=1&owner=1&pulls=1&stargazers=1&theme=Light)
 
 <div align="center">
 
