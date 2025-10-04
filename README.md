@@ -97,7 +97,7 @@ ATS_OPENAI_GENERATE_MODEL=ZhipuAI/GLM-4.5 # 推荐使用 GLM-4.5 / GLM-4.6
 # OpenAI API Configuration - 评判问题、刷新进度、谜题打分
 ATS_OPENAI_JUDGE_API_KEY=
 ATS_OPENAI_JUDGE_BASE_URL=https://openrouter.ai/api/v1
-ATS_OPENAI_JUDGE_MODEL=x-ai/grok-4-fast:free # 推荐使用 grok-4-fast，最好是带 reasoning 的模型
+ATS_OPENAI_JUDGE_MODEL=x-ai/grok-4-fast # 推荐使用 grok-4-fast，最好是带 reasoning 的模型
 
 # 游戏配置
 ATS_MAX_QUESTIONS=50  # 每局游戏最大提问次数
@@ -111,7 +111,7 @@ ATS_TIMEOUT=7200      # 游戏超时时间(秒)，默认2小时
   - `JUDGE`: 用于游戏主持、回答问题、计算进度(需要较高准确性)
   - 可以配置为相同或不同的 API 服务
   
-- **API 兼容性**：支持 OpenAI 官方 API 以及任何兼容 OpenAI 格式的 API 服务
+- **API 兼容性**：支持 OpenRouter API 以及任何兼容 OpenAI 格式的 API 服务
 
 ## 🎉 使用
 
