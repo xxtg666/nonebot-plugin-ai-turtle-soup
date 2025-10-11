@@ -7,6 +7,7 @@ from nonebot.plugin import PluginMetadata, require
 from nonebot.rule import to_me
 from nonebot.exception import FinishedException
 from nonebot.adapters import Event
+from nonebot.plugin import inherit_supported_adapters
 from .game_manager import GameManager
 from .config import Config
 
@@ -25,9 +26,11 @@ __plugin_meta__ = PluginMetadata(
     type="application",
     homepage="https://github.com/xxtg666/nonebot-plugin-ai-turtle-soup",
     config=Config,
+    supported_adapters=inherit_supported_adapters("nonebot_plugin_alconna", "nonebot_plugin_uninfo"),
 )
 
 require("nonebot_plugin_alconna")
+require("nonebot_plugin_uninfo")
 
 from nonebot_plugin_alconna import (
     Alconna,
@@ -36,6 +39,7 @@ from nonebot_plugin_alconna import (
     on_alconna,
     UniMessage
 )
+from nonebot_plugin_uninfo import Session, UniSession
 
 
 # 初始化游戏管理器
@@ -64,9 +68,9 @@ at_bot_handler = on_message(rule=to_me(), priority=6, block=True)
 
 
 @start_game.assign("$main")
-async def handle_start_game(result: Arparma, event: Event):
+async def handle_start_game(result: Arparma, event: Event, session: Session = UniSession()):
     """开始新游戏"""
-    session_id = _get_session_id(event)
+    session_id = session.scene.id
     
     # 检查是否已有进行中的游戏
     if game_manager.has_active_game(session_id):
@@ -93,22 +97,22 @@ async def handle_start_game(result: Arparma, event: Event):
             f"📊 当前进度: 0%"
         )
         
-        await UniMessage(message_1).send()
+        await UniMessage(message_1).finish()
         
         # 生成谜题评分
         # await UniMessage("正在评估谜题质量...").send()
-        rating = await game_manager.rate_puzzle(session_id)
+        # rating = await game_manager.rate_puzzle(session_id)
 
-        message_2 = (
-            f"⭐ 谜题评分:\n"
-            f"  综合评分: {rating['scores']['overall']}/10\n"
-            f"  悬念度: {rating['scores']['suspense']}/10\n"
-            f"  逻辑性: {rating['scores']['logic']}/10\n"
-            f"  创意性: {rating['scores']['creativity']}/10\n"
-            f"  可玩性: {rating['scores']['playability']}/10"
-        )
+        # message_2 = (
+        #     f"⭐ 谜题评分:\n"
+        #     f"  综合评分: {rating['scores']['overall']}/10\n"
+        #     f"  悬念度: {rating['scores']['suspense']}/10\n"
+        #     f"  逻辑性: {rating['scores']['logic']}/10\n"
+        #     f"  创意性: {rating['scores']['creativity']}/10\n"
+        #     f"  可玩性: {rating['scores']['playability']}/10"
+        # )
         
-        await UniMessage(message_2).finish()
+        # await UniMessage(message_2).finish()
     except FinishedException:
         return
         
@@ -117,10 +121,10 @@ async def handle_start_game(result: Arparma, event: Event):
 
 
 @at_bot_handler.handle()
-async def handle_at_bot(event: Event):
+async def handle_at_bot(event: Event, session: Session = UniSession()):
     """处理@bot的消息 - 提问、放弃、查看进度、提示、重新计算进度"""
-    session_id = _get_session_id(event)
-    
+    session_id = session.scene.id
+
     # 获取消息内容
     msg = await UniMessage.generate(event=event)
     text = msg.extract_plain_text().strip()
@@ -319,21 +323,3 @@ async def handle_help():
 祝你玩得开心! 🎉
 """
     await UniMessage(help_text.strip()).finish()
-
-
-def _get_session_id(event: Event) -> str:
-    """获取会话ID - 支持多平台"""
-    # 尝试获取群组ID
-    if hasattr(event, 'group_id') and event.group_id:
-        return f"group_{event.group_id}"
-    # 尝试获取频道ID
-    elif hasattr(event, 'guild_id') and event.guild_id:
-        guild_id = event.guild_id
-        channel_id = getattr(event, 'channel_id', '')
-        return f"guild_{guild_id}_{channel_id}"
-    # 尝试获取用户ID
-    elif hasattr(event, 'user_id') and event.user_id:
-        return f"private_{event.user_id}"
-    # 获取不到，使用通用标识
-    else:
-        return f"unknown_{id(event)}"

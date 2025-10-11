@@ -1,2 +1,3 @@
-openai
+openai>=2.3.0
 nonebot-plugin-alconna>=0.52.0
+nonebot-plugin-uninfo>=0.9.0
