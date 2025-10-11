@@ -11,6 +11,9 @@ from nonebot.plugin import inherit_supported_adapters
 from .game_manager import GameManager
 from .config import Config
 
+require("nonebot_plugin_alconna")
+require("nonebot_plugin_uninfo")
+
 __plugin_meta__ = PluginMetadata(
     name="海龟汤游戏",
     description="AI驱动的海龟汤(情境猜谜)游戏",
@@ -28,9 +31,6 @@ __plugin_meta__ = PluginMetadata(
     config=Config,
     supported_adapters=inherit_supported_adapters("nonebot_plugin_alconna", "nonebot_plugin_uninfo"),
 )
-
-require("nonebot_plugin_alconna")
-require("nonebot_plugin_uninfo")
 
 from nonebot_plugin_alconna import (
     Alconna,
