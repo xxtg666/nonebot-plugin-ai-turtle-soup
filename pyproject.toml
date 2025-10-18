@@ -1,14 +1,14 @@
 [project]
 name = "nonebot-plugin-ai-turtle-soup"
 
-version = "1.0.5"
+version = "1.0.6"
 
 description = "AI驱动的海龟汤(情境猜谜)游戏"
 authors = [
     { name = "xxtg666", email = "xxtg666@gmail.com" }
 ]
 dependencies = [
-    "nonebot2",
+    "nonebot2>=2.3.0",
     "nonebot-plugin-alconna>=0.52.0",
     "nonebot-plugin-uninfo>=0.9.0",
     "openai>=2.3.0"

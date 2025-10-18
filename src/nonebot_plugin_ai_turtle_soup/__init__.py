@@ -8,6 +8,7 @@ from nonebot.rule import to_me
 from nonebot.exception import FinishedException
 from nonebot.adapters import Event
 from nonebot.plugin import inherit_supported_adapters
+from nonebot.log import logger
 from .game_manager import GameManager
 from .config import Config
 
@@ -84,7 +85,7 @@ async def handle_start_game(result: Arparma, event: Event, session: Session = Un
     try:
         puzzle = await game_manager.create_game(session_id, theme=theme)
 
-        print(puzzle)
+        logger.info(f"{session_id} 创建了新的海龟汤游戏: \n{puzzle}")
 
         message_1 = (
             f"🎮 海龟汤游戏开始!\n\n"
